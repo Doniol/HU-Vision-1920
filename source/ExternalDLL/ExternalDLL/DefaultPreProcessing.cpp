@@ -9,6 +9,7 @@
 #include "GrayscaleAlgorithm.h"
 #include "ImageFactory.h"
 #include "HereBeDragons.h"
+#include <opencv2/opencv.hpp>
 
 IntensityImage * DefaultPreProcessing::stepToIntensityImage(const RGBImage &src) const {
 	GrayscaleAlgorithm grayScaleAlgorithm;
@@ -41,6 +42,11 @@ IntensityImage * DefaultPreProcessing::stepEdgeDetection(const IntensityImage &s
 	filter2D(OverHillOverDale, OverParkOverPale, CV_8U, ThoroughBushThoroughBrier, cv::Point(-1, -1), 0, cv::BORDER_DEFAULT);
 	IntensityImage * ThoroughFloodThoroughFire = ImageFactory::newIntensityImage();
 	HereBeDragons::NoWantOfConscienceHoldItThatICall(OverParkOverPale, *ThoroughFloodThoroughFire);
+
+	cv::namedWindow("Test", CV_WINDOW_AUTOSIZE);
+	cv::imshow("Test", OverParkOverPale);
+	cvWaitKey(0);
+
 	return ThoroughFloodThoroughFire;
 }
 
